@@ -1,0 +1,21 @@
+version: "3.9"
+
+services:
+  siple:
+    build: ./src
+    volumes:
+      - ./src:/app
+    networks:
+      - nginx-proxy
+    command: python3 main.py
+    environment:
+      VIRTUAL_HOST: "siple.ostwilkens.se"
+      LETSENCRYPT_HOST: "siple.ostwilkens.se"
+      SIP_SERVER: "voip.46elks.com"
+      WS_HOST_PORT: "3000"
+    ports:
+      - "3000:3000"
+
+networks:
+  nginx-proxy:
+    external: true
